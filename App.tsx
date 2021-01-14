@@ -1,21 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import AppLoading from 'expo-app-loading';
+import { Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import useLoad from './hooks/useLoad';
 
 export default function App() {
+  const { loading, error } = useLoad({
+    images: [require('./assets/splash.png')],
+    fonts: [Ionicons.font],
+  });
+
+  if (loading === false) return <AppLoading />;
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View>
+      <Text>{error || 'ready to start'}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
